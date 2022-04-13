@@ -28,15 +28,25 @@
 Для реализации основного меню можно использовать пример ниже или написать свой
 """
 
+def add_acc(acc_sum):
+#обновляет acc_sum до введенного значения, если это число
+    while True:
+        sum1 = input('Введите сумму пополнения счета: ')
+        if sum1.replace('.', '', 1).isdigit():
+            acc_sum+=float(sum1)
+            return acc_sum
+
+acc = 0
 while True:
     print('1. пополнение счета')
     print('2. покупка')
     print('3. история покупок')
     print('4. выход')
 
-    choice = input('Выберите пункт меню')
+    choice = input('Выберите пункт меню ')
     if choice == '1':
-        pass
+        acc = add_acc(acc)
+        print('Текущий счет: ', acc)
     elif choice == '2':
         pass
     elif choice == '3':
@@ -44,4 +54,4 @@ while True:
     elif choice == '4':
         break
     else:
-        print('Неверный пункт меню')
+        print('Неверный пункт меню ')
