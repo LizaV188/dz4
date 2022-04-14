@@ -28,15 +28,51 @@
 Для реализации основного меню можно использовать пример ниже или написать свой
 """
 
+# def add_acc2():
+#     # тут я попыталась использовать в функции с глобальную переменную, но все же лучше передавать
+#     # глобальную переменную как аргумент функции
+#     global acc
+#     print('acc', acc)
+#     while True:
+#         sum1 = input('Введите сумму пополнения счета: ')
+#         if sum1.replace('.', '', 1).isdigit():
+#             acc += float(sum1)
+#             break
+
 def add_acc(acc_sum):
-#обновляет acc_sum до введенного значения, если это число
+    # обновляет acc_sum до введенного значения, если это число
     while True:
         sum1 = input('Введите сумму пополнения счета: ')
         if sum1.replace('.', '', 1).isdigit():
-            acc_sum+=float(sum1)
+            acc_sum += float(sum1)
             return acc_sum
 
+def purchase(acc_sum):
+    while True:
+        sum1 = input('Введите сумму покупки: ')
+        if sum1.replace('.', '', 1).isdigit():
+            sum1 = float(sum1)
+            if sum1 <= acc_sum:
+                balance = acc_sum - sum1
+                item_goods = input('Введите название покупки: ')
+                history_goods.append([item_goods, sum1])
+            else:
+                balance = acc_sum
+                print('Для покупки недостаточно средств!')
+            return (balance)
+
+
+def print_history():
+    if not history_goods:
+        print('Покупок еше не было')
+    else:
+        print('Покупки:')
+        for n, x in enumerate(history_goods):
+            print(f'{n+1}) {x[0]}: {x[1]}')
+
+
 acc = 0
+history_goods = []
 while True:
     print('1. пополнение счета')
     print('2. покупка')
@@ -46,11 +82,13 @@ while True:
     choice = input('Выберите пункт меню ')
     if choice == '1':
         acc = add_acc(acc)
+#        add_acc2()
         print('Текущий счет: ', acc)
     elif choice == '2':
-        pass
+        acc = purchase(acc)
+        print('Текущий счет: ', acc)
     elif choice == '3':
-        pass
+        print_history()
     elif choice == '4':
         break
     else:
