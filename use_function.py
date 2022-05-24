@@ -39,6 +39,8 @@
 #             acc += float(sum1)
 #             break
 
+history_goods = []
+
 def add_acc(acc_sum):
     # обновляет acc_sum до введенного значения, если это число
     while True:
@@ -70,26 +72,29 @@ def print_history():
         for n, x in enumerate(history_goods):
             print(f'{n+1}) {x[0]}: {x[1]}')
 
+def personal_acc():
+    acc = 0
+    while True:
+        print('1. пополнение счета')
+        print('2. покупка')
+        print('3. история покупок')
+        print('4. выход')
 
-acc = 0
-history_goods = []
-while True:
-    print('1. пополнение счета')
-    print('2. покупка')
-    print('3. история покупок')
-    print('4. выход')
+        choice = input('Выберите пункт меню ')
+        if choice == '1':
+            acc = add_acc(acc)
+    #        add_acc2()
+            print('Текущий счет: ', acc)
+        elif choice == '2':
+            acc = purchase(acc)
+            print('Текущий счет: ', acc)
+        elif choice == '3':
+            print_history()
+        elif choice == '4':
+            break
+        else:
+            print('Неверный пункт меню ')
 
-    choice = input('Выберите пункт меню ')
-    if choice == '1':
-        acc = add_acc(acc)
-#        add_acc2()
-        print('Текущий счет: ', acc)
-    elif choice == '2':
-        acc = purchase(acc)
-        print('Текущий счет: ', acc)
-    elif choice == '3':
-        print_history()
-    elif choice == '4':
-        break
-    else:
-        print('Неверный пункт меню ')
+
+if __name__ == '__main__':
+    personal_acc()
