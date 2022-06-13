@@ -39,6 +39,10 @@
 #             acc += float(sum1)
 #             break
 
+import os
+ACC_FILE_NAME='acc.txt'
+GOODS_FILE_NAME='goods.txt'
+
 history_goods = []
 
 def add_acc(acc_sum):
@@ -74,23 +78,37 @@ def print_history():
 
 def personal_acc():
     acc = 0
+    if os.path.isfile(ACC_FILE_NAME):
+        with open(ACC_FILE_NAME, 'r') as f:
+            acc = float(f.read())
+    if os.path.isfile(GOODS_FILE_NAME):
+        with open(ACC_FILE_NAME, 'r') as f1:
+            for line in f1:
+                history_goods.append(line)
+
+
     while True:
+        print('Текущий счет: ', acc)
         print('1. пополнение счета')
         print('2. покупка')
         print('3. история покупок')
         print('4. выход')
-
         choice = input('Выберите пункт меню ')
         if choice == '1':
             acc = add_acc(acc)
     #        add_acc2()
-            print('Текущий счет: ', acc)
         elif choice == '2':
             acc = purchase(acc)
-            print('Текущий счет: ', acc)
         elif choice == '3':
             print_history()
         elif choice == '4':
+            with open(ACC_FILE_NAME, 'w') as f:
+                f.write(str(acc))
+            with open(GOODS_FILE_NAME, 'w') as f1:
+                for i in history_goods:
+                    f1.write(", ".join(i))
+
+
             break
         else:
             print('Неверный пункт меню ')
