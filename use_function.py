@@ -82,9 +82,10 @@ def personal_acc():
         with open(ACC_FILE_NAME, 'r') as f:
             acc = float(f.read())
     if os.path.isfile(GOODS_FILE_NAME):
-        with open(ACC_FILE_NAME, 'r') as f1:
+        with open(GOODS_FILE_NAME, 'r') as f1:
             for line in f1:
-                history_goods.append(line)
+                new_line=line.replace('\n','')
+                history_goods.append(new_line.split(', '))
 
 
     while True:
@@ -106,9 +107,8 @@ def personal_acc():
                 f.write(str(acc))
             with open(GOODS_FILE_NAME, 'w') as f1:
                 for i in history_goods:
-                    f1.write(", ".join(i))
-
-
+                    f1.write(", ".join(str(element) for element in i))
+                    f1.write('\n')
             break
         else:
             print('Неверный пункт меню ')
